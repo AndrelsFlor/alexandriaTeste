@@ -1,4 +1,31 @@
+
+
 $(document).ready(function(){
+
+	var id = $("#idEditora").val();
+	$.ajax({
+		url:"main.php",
+		type:"POST",
+		dataType:"json",
+		data:{acao:"carregaDadosEditora", id:id},
+		success: function(dados){
+			$(document).data('nome_editora',dados.nome);
+			$(document).data('id_editora',	id);
+			$(document).data('cnpj_editora',dados.cnpj);
+			$(document).data('email_editora',dados.email);
+			$(document).data('logo_editora',dados.logo);
+
+			$("#divNome").append(	$(document).data('nome_editora'));
+
+
+
+			$("#logoEditora").attr("src","imagens/"+dados.logo);
+
+
+
+		}
+	});
+
 	$("#uploaImagemForm").submit(function(e){
 
 		e.preventDefault();
@@ -19,7 +46,7 @@ $(document).ready(function(){
                         var myXhr = $.ajaxSettings.xhr();
                         if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
                             myXhr.upload.addEventListener('progress', function () {
-                                
+
                                 $("#btnEnviaImagem").attr("value","Carregando.");
                                 $("#btnEnviaImagem").attr("value","Carregando..");
                                 $("#btnEnviaImagem").attr("value","Carregando...");
@@ -41,4 +68,46 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$("#updateEditora").on('shown.bs.collapse',function(){
+		$("#name").val($(document).data('nome_editora'));
+		$("#email").val($(document).data('email_editora'));
+
+
+
+	});
+
+	$("#confirmarUpdate").click(function(e){
+		e.preventDefault();
+
+		var nome = $("#name").val();
+		var email = $("#email").val();
+
+		if(nome == "" || email == ""){
+			$("#divErro").attr("class","alert alert-danger");
+			$("#divErro").append("Todos os campos devem estar preenchidos!");
+		}
+		else{
+			$(document).data('nome_editora',nome);
+			$(document).data('email_editora',email);
+
+			$.ajax({
+				url:"main.php",
+				type:"POST",
+				dataType:"json",
+				data:{id: 		$(document).data('id_editora'),
+							nome: 	$(document).data('nome_editora'),
+							email: 	$(document).data('email_editora'),
+							cnpj:		$(document).data('cnpj_editora')
+							biografia: $(document).data('biografia')},
+				success: function(data){
+
+				}
+			});
+		}
+
+	});
+
+
+
 });

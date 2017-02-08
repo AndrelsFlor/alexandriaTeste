@@ -9,19 +9,19 @@ private $nome;
 private $cnpj;
 private $email;
 private $senha;
-private $fotoPerfil; 
+private $fotoPerfil;
 
 public function insert(){
 
 	$sql = "INSERT INTO $this->tabela(nome,cnpj,email,senha,fotoPerfil) VALUES(:nome,:cnpj,:email,:senha,:fotoPerfil)";
 
 	$stmt = BD::prepare($sql);
-	
+
 	$stmt->bindParam(':nome', 			$this->nome);
 	$stmt->bindParam(':cnpj', 			$this->cnpj);
 	$stmt->bindParam(':email', 			$this->email);
 	$stmt->bindParam(':senha', 			$this->senha);
-	$stmt->bindParam(':fotoPerfil', 	$this->fotoPerfil);
+	$stmt->bindParam(':fotoPerfil', $this->fotoPerfil);
 
 	return $stmt->execute();
 }
@@ -29,7 +29,7 @@ public function insert(){
 public function update($id){
 
 	$sql = "UPDATE $this->tabela SET nome = :nome,  email = :email WHERE id = :id";
-	
+
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':nome', 			$this->nome);
@@ -73,7 +73,7 @@ public function login($email,$senha){
 
 public function aprovaObra($idObra,$idEditora){
 	$sql = "INSERT INTO obrasaprovadas(idObra,idEditora) VALUES(:idObra,:idEditora)";
-	
+
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':idObra',		$idObra);

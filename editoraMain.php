@@ -1,15 +1,16 @@
 <?php
 	require_once 'editoraClasse.php';
-
+	require_once 'obrasClasse.php';
+	require_once 'tagsClasse.php';
 	$postData = json_decode(file_get_contents("php://input"));
 
 	if($postData->acao == 'carregaDadosEditora'){
 
 		$id = $postData->id;
-		
+
 
 		$editora = new Editora();
-		
+
 		$consulta = $editora->busca($id);
 
 		$resposta = array("nome"=>$consulta->nome,
@@ -21,7 +22,7 @@
 		echo json_encode($resposta);
 	}
 	else if($postData->acao == "updateEditora"){
-		
+
 		$editora = new Editora();
 
 		$id = $postData->id;
@@ -44,5 +45,15 @@
 		echo $postData;
 
 	}
-	
+	else if($postData->acao="carregaTags"){
+		$tags = new Tags();
+
+		$consulta = $tags->buscaTudo();
+
+		$resposta = array("id"=>$consulta->id,
+											"nome"=>$consulta->tag);
+
+	echo json_encode($resposta);
+
+	}
 ?>

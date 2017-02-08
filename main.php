@@ -58,7 +58,7 @@
 		<tr>
 			<td><a href="uploads/<?php echo $valor->caminho;?>"><?php echo $valor->titulo;?></a></td>
 			<td><?php echo $valor->tag;?></td>
-			<td><button type="button"  class="btnDeletaObra glyphicon glyphicon-trash" id="<?php echo $valor->idObra;?>" idEscritor="<?php echo $idEscritor;?>"></button></td>
+			<td><button type="button"  class="btnDeletaObra btn btn-danger glyphicon glyphicon-trash" id="<?php echo $valor->idObra;?>" idEscritor="<?php echo $idEscritor;?>"></button></td>
 
 		</tr>
 		</tbody>
@@ -259,9 +259,7 @@
 
 		     $obra->insert();
 	}
-	else if($acao == 'carregaDadosEditora'){
-			echo "me dá id, porra";
-	}
+
 	else if($acao == 'updateImagemEditora'){
 		$id = $_POST['id'];
 
@@ -325,6 +323,24 @@
 				}
 
 		}
+		else if($acao == "carregaDadosEditora"){
 
+			$id = $_POST['id'];
+
+			$editora = new Editora();
+
+			$consulta = $editora->busca($id);
+
+			$resposta = array('id' 				=> $consulta->ID,
+												'nome' 			=> $consulta->nome,
+												'cnpj'			=> $consulta->cnpj,
+												'email'			=> $consulta->email,
+												'biografia' => $consulta->biografia,
+												'logo'			=> $consulta->logo
+												);
+
+		echo json_encode($resposta);
+
+		}
 
 ?>
