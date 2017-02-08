@@ -1,12 +1,12 @@
 <?php
-	
+
 	require_once 'escritorClasse.php';
 	require_once 'editoraClasse.php';
 	require_once 'obrasClasse.php';
 	require_once 'tagsClasse.php';
 
 	$acao = $_POST['acao'];
-	
+
 	if($acao == 'login'){
 		echo 'sucesso!';
 		session_start();
@@ -16,7 +16,7 @@
 		$email = $_POST['email'];
 		$senha = $_POST['senha'];
 
-		
+
 
 		$hash = password_hash($senha,PASSWORD_DEFAULT);
 
@@ -53,12 +53,13 @@
 <?php
 		foreach($obras->selectObrasEscritor($idEscritor) as $valor){
 
-?>		
+?>
 		<tbody>
 		<tr>
 			<td><a href="uploads/<?php echo $valor->caminho;?>"><?php echo $valor->titulo;?></a></td>
 			<td><?php echo $valor->tag;?></td>
-			
+			<td><button type="button"  class="btnDeletaObra glyphicon glyphicon-trash" id="<?php echo $valor->idObra;?>" idEscritor="<?php echo $idEscritor;?>"></button></td>
+
 		</tr>
 		</tbody>
 
@@ -76,7 +77,7 @@
 		$id = $_POST['id'];
 		$valor = $escritor->busca($id);
 ?>
-	
+
 	<div class="col-md-9 col-md-offset-2">
 			<div class="row main">
 				<div class="panel-heading">
@@ -84,10 +85,10 @@
 	               		<h1 class="title">Atualize suas informações</h1>
 	               		<hr />
 	               	</div>
-	            </div> 
+	            </div>
 				<div class="main-login main-center">
 					<form class="form-horizontal" id="formUpdateEscritor" method="post" action="#">
-						
+
 						<div class="form-group">
 							<label for="name" class="cols-sm-2 control-label">Nome</label>
 							<div class="cols-sm-10">
@@ -108,9 +109,9 @@
 							</div>
 						</div>
 
-						
 
-						
+
+
 						<div class="form-group ">
 							<button id="confirmarUpdate"type="button" class="btn btn-primary btn-lg btn-block login-button">Confirmar</button>
 							<button id="cancelarUpdate"type="button" class="btn btn-danger btn-lg btn-block login-button">Cancelar</button>
@@ -121,7 +122,7 @@
 				</div>
 			</div>
 		</div>
-	
+
 <?php
 	}
 	else if($acao == 'cancelar'){
@@ -133,18 +134,18 @@
 		$id = $_POST['id'];
 
 		$escritor = new Escritor();
-		
+
 		$escritor->setNome($nome);
 		$escritor->setEmail($email);
 
 		$escritor->updateParcial($id);
 
-		echo $nome; 	
+		echo $nome;
 	}
 
 	else if($acao == 'updateImagemLayout'){
 		$id = $_POST['id'];
-?>	
+?>
 	<form id="uploaImagemForm" enctype="multipart/form-data">
 	<input type="file" name="foto"><br>
 	<input type="hidden" name="acao" value="uploadImagem">
@@ -159,20 +160,20 @@
 			$id = $_POST['id'];
 
 			date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
-		
+
 		     $ext = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
 		     $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
 		     $dir = 'imagens/'; //Diretório para uploads
-		
+
 		     move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name); //Fazer upload do arquiv
 
 		    $escritor = new Escritor();
 		    $escritor->setFotoPerfil($new_name);
 		    $escritor->updateImagem($id);
 ?>
-	
+
 	        <img src="imagens/<?php echo $new_name;?>" class="img-responsive thumbnail">
-	   
+
 <?php
 	}
 	else if($acao == 'uploadObraLayout'){
@@ -234,11 +235,11 @@
 
 			$obra = new Obras();
 			date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
-		
+
 		     $ext = strtolower(substr($_FILES['obra']['name'],-4)); //Pegando extensão do arquivo
 		     $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
 		     $dir = 'imagens/'; //Diretório para uploads
-		
+
 		     move_uploaded_file($_FILES['obra']['tmp_name'], $dir.$new_name); //Fazer upload do arquiv
 
 		     $idEscritor = $_POST['idEscritor'];
@@ -265,20 +266,20 @@
 		$id = $_POST['id'];
 
 				date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
-			
+
 			     $ext = strtolower(substr($_FILES['foto']['name'],-4)); //Pegando extensão do arquivo
 			     $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
 			     $dir = 'imagens/'; //Diretório para uploads
-			
+
 			     move_uploaded_file($_FILES['foto']['tmp_name'], $dir.$new_name); //Fazer upload do arquiv
 
 			    $editora = new Editora();
 			    $editora->setFotoPerfil($new_name);
 			    $editora->updateImagem($id);
 	?>
-		
+
 		        <img src="imagens/<?php echo $new_name;?>" class="img-responsive thumbnail">
-		   
+
 	<?php
 		}
 		else if($acao == 'pesquisaObrasLayout'){
@@ -290,6 +291,38 @@
 
 	<?php
 			}
+
+		}
+
+		else if($acao == 'deletaObra'){
+
+				$id = $_POST['idObra'];
+				$idEscritor = $_POST['idEscritor'];
+				$obra = new Obras();
+				$obra->delete($id);
+
+ ?>
+ <div class="col-md-9 col-md-offset-2">
+	<table id="tabelaObras" class="table table-striped table-condensed table-bordered">
+ <?php
+				foreach($obra->selectObrasEscritor($idEscritor) as $valor){
+
+		?>
+				<tbody>
+				<tr>
+					<td><a href="uploads/<?php echo $valor->caminho;?>"><?php echo $valor->titulo;?></a></td>
+					<td><?php echo $valor->tag;?></td>
+					<td><button type="button"  class="btnDeletaObra glyphicon glyphicon-trash" id="<?php echo $valor->idObra;?>"></button></td>
+
+				</tr>
+				</tbody>
+</table>
+
+<button type="button" id="btnCancelaLista" class="btn btn-danger btn-lg btn-block login-button">Cancelar</button>
+</div>
+		<?php
+
+				}
 
 		}
 

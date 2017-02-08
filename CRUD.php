@@ -26,9 +26,9 @@
 
 		public function delete($id){
 			$sql = "DELETE FROM $this->tabela WHERE id = :id";
-			$stmt = DB::prepare($sql);
+			$stmt = BD::prepare($sql);
 			$stmt->bindParam(':id',$id,PDO::PARAM_INT);
-			
+
 			return $stmt->execute();
 
 		}

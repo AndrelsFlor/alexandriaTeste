@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(document).mousemove(function(event) {
-        TweenLite.to($("body"), 
+        TweenLite.to($("body"),
         .5, {
             css: {
                 backgroundPosition: "" + parseInt(event.pageX / 8) + "px " + parseInt(event.pageY / '12') + "px, " + parseInt(event.pageX / '15') + "px " + parseInt(event.pageY / '15') + "px, " + parseInt(event.pageX / '30') + "px " + parseInt(event.pageY / '30') + "px",
@@ -11,7 +11,7 @@ $(document).ready(function() {
 
      var $btnSets = $('#responsive'),
         $btnLinks = $btnSets.find('a');
-     
+
         $btnLinks.click(function(e) {
             e.preventDefault();
             $(this).siblings('a.active').removeClass("active");
@@ -21,8 +21,8 @@ $(document).ready(function() {
             $("div.user-menu>div.user-menu-content").eq(index).addClass("active");
         });
 
-        
-        
+
+
         $('.view').hover(
             function(){
                 $(this).find('.caption').slideDown(250); //.fadeIn(250)
@@ -30,7 +30,7 @@ $(document).ready(function() {
             function(){
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
-        ); 
+        );
 
         $(this).on('click',"#notificacao",function(){
         	alert("notificacao");
@@ -44,7 +44,7 @@ $(document).ready(function() {
         		data:{idEscritor:id,acao:'listaObras'},
         		success:function(data){
         			$("#display").html(data);
-        		
+
 
         		}
         	});
@@ -53,7 +53,7 @@ $(document).ready(function() {
         $("#updateEscritor").click(function(){
             var id = $("#idEscritor").val();
             $.ajax({
-                
+
                 url:"main.php",
                 type:"POST",
                 data:{acao:"updateEscritorLayout",id:id},
@@ -121,7 +121,7 @@ $(document).ready(function() {
                         var myXhr = $.ajaxSettings.xhr();
                         if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
                             myXhr.upload.addEventListener('progress', function () {
-                                
+
                                 $("#btnEnviaImagem").attr("value","Carregando.");
                                 $("#btnEnviaImagem").attr("value","Carregando..");
                                 $("#btnEnviaImagem").attr("value","Carregando...");
@@ -149,7 +149,7 @@ $(document).ready(function() {
             type:"POST",
             data:{acao:"cancelaListaObra"},
             success:function(data){
-                $("#display").html(data); 
+                $("#display").html(data);
             }
         });
      });
@@ -195,7 +195,7 @@ $(document).ready(function() {
                     var myXhr = $.ajaxSettings.xhr();
                     if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
                         myXhr.upload.addEventListener('progress', function () {
-                            
+
                             $("#confirmaUploadObra").attr("value","Carregando.");
                             $("#confirmaUploadObra").attr("value","Carregando..");
                             $("#confirmaUploadObra").attr("value","Carregando...");
@@ -206,6 +206,21 @@ $(document).ready(function() {
             });
 
      });
-    });
 
-   
+     $(document).on('click','.btnDeletaObra',function(e){
+       e.preventDefault();
+       if(confirm("Deseja mesmo deletar essa obra?")){
+         var id = $(this).attr('id');
+         var idEscritor = $(this).attr('idEscritor');
+         $.ajax({
+           url:"main.php",
+           type:"POST",
+           data:{acao:'deletaObra',idObra:id,idEscritor:idEscritor},
+           success:function(data){
+             alert('sucesso!');
+             $("#display").html(data);
+           }
+         });
+       }
+     });
+    });
