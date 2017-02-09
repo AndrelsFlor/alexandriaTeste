@@ -109,6 +109,39 @@ $(document).ready(function(){
 
 	});
 
+$("#pesquisaObras").click(function(){
+	$.ajax({
+		url:"main.php",
+		type:"POST",
+		dataType:"json",
+		data:{acao:"loadTags"},
+		success:function(data){
+			$.each(data,function(){
+				$("#selectTags").append(
+						"<option value="+this.id+">"+this.tag+"</option>");
 
+			});
+			$("#selectTags").append("<option value='todas'>Todas</option>");
+		}
+
+	});
+});
+
+$("#selectTags").change(function(){
+	 var tag = $("#selectTags").val();
+
+		$.ajax({
+			url:"main.php",
+			type:"POST",
+			dataType:"json",
+			data:{acao:"loadObrasEditora",tag:tag},
+			success:function(data){
+					$.each(data,function(){
+						$("#corpoTabela").append("<tr><td><a href=uploads/"+encodeURI(this.caminho)+">"+this.titulo+"</a></td><td>"+this.autor+"</td><td>"+this.pgDisp+"</td><td>"+this.pgTotal+"</td></tr>");
+					});
+			}
+
+		});
+});
 
 });

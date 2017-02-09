@@ -1,5 +1,9 @@
 <?php
 
+
+header('Content-type: text/plain; charset=utf-8');
+
+
 	require_once 'escritorClasse.php';
 	require_once 'editoraClasse.php';
 	require_once 'obrasClasse.php';
@@ -363,5 +367,47 @@
 
 
 		}
+
+		else if($acao == "loadTags"){
+			$tags = new Tags();
+
+			$generos = [];
+
+			foreach($tags->buscaTudo() as $valor){
+					$tags = array('id' 	=> $valor->id,
+												'tag' => $valor->tag);
+
+				array_push($generos,$tags);
+			}
+
+			echo json_encode($generos);
+		}
+
+		else if($acao == 'loadObrasEditora'){
+			$tag =  $_POST['tag'];
+
+			if($tag == 'todas'){
+				$obras = [];
+
+				$editora = new Editora();
+
+				foreach($editora->buscaTodasObras() as $valor){
+					$obra = array('id' => $valor->id,
+												'titulo' 		=> $valor->titulo,
+												'caminho' 	=> $valor->caminho,
+												'descricao' => $valor->descricao,
+												'pgDisp' 		=> $valor->pgDisp,
+												'pgTotal' 	=> $valor->pgTotal,
+												'autor'			=> $valor->nome);
+
+					array_push($obras,$obra);
+				}
+
+				echo json_encode($obras);
+			}
+
+
+		}
+
 
 ?>

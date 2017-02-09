@@ -84,7 +84,7 @@ public function aprovaObra($idObra,$idEditora){
 }
 
 public function buscaTodasObras(){
-	$sql = "SELECT * FROM obras";
+	$sql = "SELECT * FROM obras INNER JOIN obraescritor ON (obraescritor.idObra = obras.id) INNER JOIN escritor ON (obraescritor.idEscritor = escritor.ID)";
 	$stmt = BD::prepare($sql);
 	$stmt->execute();
 	return $stmt->fetchAll();

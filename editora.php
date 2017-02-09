@@ -134,9 +134,33 @@
 																			<div class="panel-heading">
 																							 <div class="panel-title text-center">
 																									<h1 class="title">Pesquisa de obras</h1>
-																									<hr />
+																									<hr/>
+
 																								</div>
+
 																						</div>
+
+																			<div class="panel-body">
+																				<div class="row">
+																				<select id="selectTags" class="form-control col-md-2 col-md-offset-1">
+																					<option selected> Escolha a categoria que deseja Pesquisar</option>
+
+																				</select>
+																				<br><br><br><br>
+																				<table id="tabelaObras" class="table table-striped table-condensed table-bordered col-md-12 col-md-offset-1" style="">
+																				<thead>
+																				<tr>
+																					<th>Titulo</th>
+																					<th>Autor</th>
+																					<th>Páginas Disponíveis</th>
+																					<th>Total de páginas</th>
+																				</tr>
+																				</thead>
+																				<tbody id="corpoTabela">
+																				</tbody>
+																			</table>
+																			</div>
+																			</div>
 																		</div>
 
 																			</div>
