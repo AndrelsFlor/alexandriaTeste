@@ -95,13 +95,14 @@ $(document).ready(function(){
 				url:"main.php",
 				type:"POST",
 				dataType:"json",
-				data:{id: 		$(document).data('id_editora'),
-							nome: 	$(document).data('nome_editora'),
-							email: 	$(document).data('email_editora'),
-							cnpj:		$(document).data('cnpj_editora')
-							biografia: $(document).data('biografia')},
+				data:{id: 				$(document).data('id_editora'),
+							nome: 			$(document).data('nome_editora'),
+							email: 			$(document).data('email_editora'),
+							cnpj:				$(document).data('cnpj_editora'),
+							biografia: 	$(document).data('biografia'),
+							acao:				'updateEditora'},
 				success: function(data){
-
+						window.location.reload(true);
 				}
 			});
 		}

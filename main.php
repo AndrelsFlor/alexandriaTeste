@@ -343,4 +343,25 @@
 
 		}
 
+		else if($acao == "updateEditora"){
+			$editora = 		new Editora();
+			$email	=			$_POST['email'];
+			$nome 	=			$_POST['nome'];
+			$id 		= 		$_POST['id'];
+
+			$editora->setNome($nome);
+			$editora->setEmail($email);
+
+			$editora->update($id);
+
+			$consulta = $editora->busca($id);
+
+			$resposta = array('nome'	=> $consulta->nome,
+												'email' => $consulta->email);
+
+			echo json_encode($resposta);
+
+
+		}
+
 ?>
