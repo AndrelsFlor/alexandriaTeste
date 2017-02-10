@@ -405,9 +405,28 @@ header('Content-type: text/plain; charset=utf-8');
 
 				echo json_encode($obras);
 			}
+			else{
+				$obras = [];
+
+				$editora = new Editora();
+
+				foreach($editora->buscaObrasTag($tag) as $valor){
+					$obra = array('id' => $valor->id,
+												'titulo' 		=> $valor->titulo,
+												'caminho' 	=> $valor->caminho,
+												'descricao' => $valor->descricao,
+												'pgDisp' 		=> $valor->pgDisp,
+												'pgTotal' 	=> $valor->pgTotal,
+												'autor'			=> $valor->nome);
+
+					array_push($obras,$obra);
+			}
+
+			echo json_encode($obras);
 
 
 		}
+	}
 
 
 ?>

@@ -129,14 +129,17 @@ $("#pesquisaObras").click(function(){
 
 $("#selectTags").change(function(){
 	 var tag = $("#selectTags").val();
-
+	 	$("#corpoTabela").html("");
 		$.ajax({
 			url:"main.php",
 			type:"POST",
 			dataType:"json",
 			data:{acao:"loadObrasEditora",tag:tag},
 			success:function(data){
+					$("#tabelaObras").attr("style","");
+
 					$.each(data,function(){
+
 						$("#corpoTabela").append("<tr><td><a href=uploads/"+encodeURI(this.caminho)+">"+this.titulo+"</a></td><td>"+this.autor+"</td><td>"+this.pgDisp+"</td><td>"+this.pgTotal+"</td></tr>");
 					});
 			}

@@ -147,7 +147,7 @@
 
 																				</select>
 																				<br><br><br><br>
-																				<table id="tabelaObras" class="table table-striped table-condensed table-bordered col-md-12 col-md-offset-1" style="">
+																				<table id="tabelaObras" class="table table-striped table-condensed table-bordered col-md-12 col-md-offset-1" style="display:none">
 																				<thead>
 																				<tr>
 																					<th>Titulo</th>
