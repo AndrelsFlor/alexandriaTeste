@@ -242,7 +242,7 @@ header('Content-type: text/plain; charset=utf-8');
 
 		     $ext = strtolower(substr($_FILES['obra']['name'],-4)); //Pegando extensão do arquivo
 		     $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
-		     $dir = 'imagens/'; //Diretório para uploads
+		     $dir = 'uploads/'; //Diretório para uploads
 
 		     move_uploaded_file($_FILES['obra']['tmp_name'], $dir.$new_name); //Fazer upload do arquiv
 
@@ -392,7 +392,7 @@ header('Content-type: text/plain; charset=utf-8');
 				$editora = new Editora();
 
 				foreach($editora->buscaTodasObras() as $valor){
-					$obra = array('id' => $valor->id,
+					$obra = array('id' => $valor->obrasID,
 												'titulo' 		=> $valor->titulo,
 												'caminho' 	=> $valor->caminho,
 												'descricao' => $valor->descricao,
@@ -411,12 +411,12 @@ header('Content-type: text/plain; charset=utf-8');
 				$editora = new Editora();
 
 				foreach($editora->buscaObrasTag($tag) as $valor){
-					$obra = array('id' => $valor->id,
-												'titulo' 		=> $valor->titulo,
-												'caminho' 	=> $valor->caminho,
-												'descricao' => $valor->descricao,
-												'pgDisp' 		=> $valor->pgDisp,
-												'pgTotal' 	=> $valor->pgTotal,
+					$obra = array('id' => $valor->obrasID,
+												'titulo' 		=> $valor->obrasTitulo,
+												'caminho' 	=> $valor->obrasCaminho,
+												'descricao' => $valor->obrasDescricao,
+												'pgDisp' 		=> $valor->obrasPgDisp,
+												'pgTotal' 	=> $valor->obrasPgTotal,
 												'autor'			=> $valor->nome);
 
 					array_push($obras,$obra);
@@ -426,6 +426,19 @@ header('Content-type: text/plain; charset=utf-8');
 
 
 		}
+	}
+
+	else if($acao="loadObraView"){
+		$obra = new Obras();
+		$id = $_POST['idObra'];
+		$busca = $obra->busca($id);
+
+		$resposta = array(
+			'id' => $busca->id,
+			'caminho' => $busca->caminho,
+		);
+
+		echo json_encode($resposta);
 	}
 
 

@@ -116,8 +116,11 @@ $("#pesquisaObras").click(function(){
 		dataType:"json",
 		data:{acao:"loadTags"},
 		success:function(data){
+			$("#selectTags").html("");
+			$("#selectTags").append( "<option selected> Escolha a categoria que deseja Pesquisar </option>");
 			$.each(data,function(){
 				$("#selectTags").append(
+
 						"<option value="+this.id+">"+this.tag+"</option>");
 
 			});
@@ -136,11 +139,12 @@ $("#selectTags").change(function(){
 			dataType:"json",
 			data:{acao:"loadObrasEditora",tag:tag},
 			success:function(data){
+				var idEditora = $("#idEditora").val();
 					$("#tabelaObras").attr("style","");
 
 					$.each(data,function(){
 
-						$("#corpoTabela").append("<tr><td><a href=uploads/"+encodeURI(this.caminho)+">"+this.titulo+"</a></td><td>"+this.autor+"</td><td>"+this.pgDisp+"</td><td>"+this.pgTotal+"</td></tr>");
+						$("#corpoTabela").append("<tr><td><a href=view.php?obra="+this.id+"&usr="+$("#idEditora").val()+">"+this.titulo+"</a></td><td>"+this.autor+"</td><td>"+this.pgDisp+"</td><td>"+this.pgTotal+"</td></tr>");
 					});
 			}
 

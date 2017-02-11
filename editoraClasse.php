@@ -92,11 +92,13 @@ public function buscaTodasObras(){
 
 
 public function buscaObrasTag($tag){
-$sql = "SELECT * FROM obras INNER JOIN obraescritor ON (obraescritor.idObra = obras.id) INNER JOIN escritor ON (obraescritor.idEscritor = escritor.ID) INNER JOIN tags ON(obras.idTag = tags.id) WHERE obras.idTag = :idTag";
+
+$sql = "SELECT obras.id AS obrasID, obras.titulo AS obrasTitulo, obras.caminho AS obrasCaminho,obras.descricao AS obrasDescricao, obras.pgDisp as obrasPgDisp, obras.pgTotal as obrasPgTotal, escritor.nome AS nome FROM obras INNER JOIN obraescritor ON (obraescritor.idObra = obras.id) INNER JOIN escritor ON (obraescritor.idEscritor = escritor.ID) INNER JOIN tags ON(obras.idTag = tags.id) WHERE obras.idTag = :idTag";
 $stmt = BD::prepare($sql);
 
 $stmt->bindParam(':idTag',$tag);
 $stmt->execute();
+
 return $stmt->fetchAll();
 }
 public function setNome($nome){
