@@ -223,4 +223,28 @@ $(document).ready(function() {
          });
        }
      });
+
+
+          setInterval(function(){
+            var cont = 0;
+           $.ajax({
+             url:"main.php",
+             type:"POST",
+             dataType:"json",
+             data:{acao:"verificaAprovacao",id:$("#idEscritor").val()},
+             success: function(data){
+               $.each(data,function(){
+                 if(this.flag != 1){
+                   cont++;
+                   $("#notificaSino").attr("style","color:#ff0000");
+                   $("#notificaSino").html(cont);
+
+
+                 }
+               });
+
+             }
+           });
+          },2000);
+
     });

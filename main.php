@@ -393,11 +393,11 @@ header('Content-type: text/plain; charset=utf-8');
 
 				foreach($editora->buscaTodasObras() as $valor){
 					$obra = array('id' => $valor->obrasID,
-												'titulo' 		=> $valor->titulo,
-												'caminho' 	=> $valor->caminho,
-												'descricao' => $valor->descricao,
-												'pgDisp' 		=> $valor->pgDisp,
-												'pgTotal' 	=> $valor->pgTotal,
+												'titulo' 		=> $valor->obrasTitulo,
+												'caminho' 	=> $valor->obrasCaminho,
+												'descricao' => $valor->obrasDescricao,
+												'pgDisp' 		=> $valor->obrasPgDisp,
+												'pgTotal' 	=> $valor->obrasPgTotal,
 												'autor'			=> $valor->nome);
 
 					array_push($obras,$obra);
@@ -428,7 +428,7 @@ header('Content-type: text/plain; charset=utf-8');
 		}
 	}
 
-	else if($acao="loadObraView"){
+	else if($acao =="loadObraView"){
 		$obra = new Obras();
 		$id = $_POST['idObra'];
 		$busca = $obra->busca($id);
@@ -440,6 +440,39 @@ header('Content-type: text/plain; charset=utf-8');
 
 		echo json_encode($resposta);
 	}
+
+	else if($acao == "aprovaObra" ){
+		$idEditora = $_POST['idEditora'];
+		$idObra = $_POST['idObra'];
+
+		$editora = new Editora();
+
+		$editora->aprovaObra($idObra,$idEditora);
+	}
+
+	else if($acao == "verificaAprovacao"){
+		$idEscritor = $_POST['id'];
+		$cont = 0;
+		$escritor = new Escritor();
+		$obj = [];
+		if($escritor->verificaAprovacao($idEscritor) != "" ){
+
+			foreach($escritor->verificaAprovacao($idEscritor) as $valor){
+				$cont++;
+			$resposta = array(
+												"idEditora" => $valor->id_obra_editora,
+												"nome_editora" => $valor->editora_nome,
+												"idObra" => $valor->id_obra_escritor,
+												"titulo" => $valor->titulo,
+												"flag" => 0,
+												"cont" => $cont
+			);
+			array_push($obj,$resposta);
+		}
+			echo json_encode($obj);
+		}
+	}
+
 
 
 ?>

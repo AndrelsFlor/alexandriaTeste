@@ -8,14 +8,14 @@ private $nome;
 private $cpf;
 private $email;
 private $senha;
-private $fotoPerfil; 
+private $fotoPerfil;
 
 public function insert(){
 
 	$sql = "INSERT INTO $this->tabela(nome,cpf,email,senha,fotoPerfil) VALUES(:nome,:cpf,:email,:senha,:fotoPerfil)";
 
 	$stmt = BD::prepare($sql);
-	
+
 	$stmt->bindParam(':nome', 			$this->nome);
 	$stmt->bindParam(':cpf', 			$this->cpf);
 	$stmt->bindParam(':email', 			$this->email);
@@ -28,7 +28,7 @@ public function insert(){
 public function update($id){
 
 	$sql = "UPDATE $this->tabela SET nome = :nome, cpf = :cpf, email = :email, senha = :senha, fotoPerfil = :fotoPerfil WHERE id = :id";
-	
+
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':nome', 			$this->nome);
@@ -45,13 +45,13 @@ public function update($id){
 public function updateParcial($id){
 
 	$sql = "UPDATE $this->tabela SET nome = :nome,  email = :email WHERE id = :id";
-	
+
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':nome', 			$this->nome);
-	
+
 	$stmt->bindParam(':email', 			$this->email);
-	
+
 	$stmt->bindParam(':id',				$id);
 
 	return $stmt->execute();
@@ -87,6 +87,19 @@ public function login($email,$senha){
 	else{
 		return false;
 	}
+}
+
+public function verificaAprovacao($idEscritor){
+
+  $sql = "SELECT obraescritor.idObra as id_obra_escritor,obras.titulo, obrasaprovadas.idEditora as id_obra_editora, editora.nome AS editora_nome FROM obraescritor INNER JOIN obrasaprovadas ON(obrasaprovadas.idObra = obraescritor.idObra) INNER JOIN obras ON(obraescritor.idObra = obras.id) INNER JOIN editora ON(obrasaprovadas.idEditora = editora.id) WHERE obraescritor.idEscritor = :idEscritor AND obrasaprovadas.visualizado <> 1";
+
+  $stmt = BD::prepare($sql);
+
+  $stmt->bindParam(':idEscritor',$idEscritor);
+
+  $stmt->execute();
+
+	return $stmt->fetchAll();
 }
 
 public function setNome($nome){

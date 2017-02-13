@@ -2,7 +2,7 @@
 <head>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="escritor.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"> 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 
@@ -11,12 +11,12 @@
 
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    
+
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
-    
+
 </head>
 <body>
 		<?php
@@ -37,15 +37,15 @@
             $foto = $consulta->fotoPerfil;
             $nome = $consulta->nome;
 		?>
-        
-        	
+
+
             <div class="container">
                 <div class="row vertical-offset-100">
                     <div class="col-md-9 col-md-offset-2">
                         <div class="panel panel-default ">
-                            
+
                             <div class="panel-body">
-                                <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">  
+                                <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
                                 <div class="container">
                                     <div class="row user-menu-container square">
                                         <div class="col-md-7 user-details">
@@ -53,7 +53,7 @@
                                                 <div class="col-md-6 no-pad">
                                                     <div class="user-pad">
                                                         <h3>Bem-vindo(a),<div id="divNome"><?php echo $nome;?></div></h3>
-                                                        
+
                                                         <button id = "updateEscritor"type="button" class="btn btn-labeled btn-info" href="#">
                                                             <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</button>&nbsp;
                                                             <a href="index.html"><button type="button" class="btn btn-danger">Sair</button></a>
@@ -69,15 +69,15 @@
                                                 </div>
                                             </div>
                                             <div class="row overview">
-                                                
+
                                             </div>
                                             <div id="display">
                                             </div>
                                         </div>
                                         <div class="col-md-1 user-menu-btns">
                                             <div class="btn-group-vertical square" id="responsive">
-                                                <a href="#" id="notificacao"class="btn btn-block btn-default active">
-                                                  <i class="fa fa-bell-o fa-3x"></i>
+                                                <a href="#" id="notificacao"class="btn btn-block btn-default active" >
+                                                  <i class="fa fa-bell-o fa-3x" style="" id="notificaSino"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-default">
                                                   <i class="fa fa-envelope-o fa-3x"></i>
@@ -88,11 +88,11 @@
                                                 <a href="#" class="btn btn-default" id="uploadObra">
                                                   <i class="fa fa-cloud-upload fa-3x"></i>
                                                 </a>
-                                               
+
                                             </div>
                                         </div>
-                                        
-                                            
+
+
                                         </div>
                                     </div>
                                 </div>
