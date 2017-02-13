@@ -473,6 +473,25 @@ header('Content-type: text/plain; charset=utf-8');
 		}
 	}
 
+	else if($acao == "visualizaAprovacao"){
+		$escritor = new Escritor();
+		$idEscritor = $_POST['id'];
+		$escritor->visualizaAprovacao($idEscritor);
+
+		$resposta = [];
+
+		foreach($escritor->visualizaAprovacao($idEscritor) as $valor){
+			$consulta = array(
+											"nome_editora" => $valor->editora_nome ,
+											"nome_obra" =>$valor->titulo,
+			);
+
+			array_push($resposta,$consulta);
+		}
+
+		echo json_encode($resposta);
+	}
+
 
 
 ?>

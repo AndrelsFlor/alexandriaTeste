@@ -33,8 +33,22 @@ $(document).ready(function() {
         );
 
         $(this).on('click',"#notificacao",function(){
-        	alert("notificacao");
-        });
+          $("#notificaSino").attr("style","");
+          $("#notificaSino").html("");
+          $.ajax({
+            url:"main.php",
+            type:"POST",
+            dataType:"json",
+            data:{acao:"visualizaAprovacao",id:$("#idEscritor").val()},
+            success: function(data){
+              $.each(data,function(){
+                $("#display").append("<p>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</p>");
+              });
+
+              }
+            });
+          });
+
         $(this).on('click',"#obras",function(e){
         	var id = $("#idEscritor").val();
         	e.preventDefault();
@@ -240,11 +254,14 @@ $(document).ready(function() {
                    $("#notificaSino").html(cont);
 
 
+
+
                  }
                });
 
              }
            });
           },2000);
+
 
     });
