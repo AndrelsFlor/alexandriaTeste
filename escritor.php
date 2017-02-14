@@ -72,13 +72,27 @@
 
                                             </div>
                                             <div id="display">
+                                              <br><br><br>
+                                              <div class="container">
+                                              <div class="col-md-8" id="aprovacoesLayout">
+                                                <div class="panel panel-info">
+                                                  <div class="panel-heading text-center" >
+                                                    Aprovações
+                                                </div>
+                                                <div class="panel-body">
+                                                  <div class="list-group" id="listaAprovacoes">
+                                                  </div>
+                                                </div>
+                                                </div>
+                                              </div>
                                             </div>
+                                          </div>
                                         </div>
                                         <div class="col-md-1 user-menu-btns">
                                             <div class="btn-group-vertical square" id="responsive">
-                                                <a href="#" id="notificacao"class="btn btn-block btn-default active" >
+                                                <button id="notificacao"class="btn btn-default" data-toggle="collapse" data-target="#aprovacoesLayout" >
                                                   <i class="fa fa-bell-o fa-3x" style="" id="notificaSino"></i>
-                                                </a>
+                                                </button>
                                                 <a href="#" class="btn btn-default">
                                                   <i class="fa fa-envelope-o fa-3x"></i>
                                                 </a>

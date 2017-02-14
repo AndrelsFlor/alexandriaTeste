@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $("#aprovacoesLayout").toggle();
     $(document).mousemove(function(event) {
         TweenLite.to($("body"),
         .5, {
@@ -35,14 +36,16 @@ $(document).ready(function() {
         $(this).on('click',"#notificacao",function(){
           $("#notificaSino").attr("style","");
           $("#notificaSino").html("");
+          $("#aprovacoesLayout").toggle();
           $.ajax({
             url:"main.php",
             type:"POST",
             dataType:"json",
             data:{acao:"visualizaAprovacao",id:$("#idEscritor").val()},
             success: function(data){
+
               $.each(data,function(){
-                $("#display").append("<p>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</p>");
+                $("#listaAprovacoes").html("<a href='#' class='list-group-item'>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</a>'");
               });
 
               }
