@@ -43,13 +43,18 @@ $(document).ready(function() {
             dataType:"json",
             data:{acao:"visualizaAprovacao",id:$("#idEscritor").val()},
             success: function(data){
-
+              $("#listaAprovacoes").html("");
               $.each(data,function(){
-                $("#listaAprovacoes").html("<a href='#' class='list-group-item'>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</a>'");
+
+                $("#listaAprovacoes").append("<a href='#' texto="+this.texto+" class='list-group-item'>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</a>'");
               });
 
               }
             });
+          });
+
+          $(this).on("click",".list-group-item",function(){
+            alert($(this).attr("texto"));
           });
 
         $(this).on('click',"#obras",function(e){

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  $("#LayoutTexto").toggle();
   $.ajax({
     url:"main.php",
     type:"POST",
@@ -9,20 +11,25 @@ $(document).ready(function(){
     }
   });
 
-  $("#aprovaObra").click(function(e){
+  $("#aprovaObra").click(function(){
+    $("#LayoutTexto").toggle();
+  });
+
+  $("#btnConfirma").click(function(e){
     e.preventDefault();
     var idObra = $("#idObra").val();
     var idEditora = $("#idEditora").val();
+    var texto = $("#textoAprovacao").val();
     if(confirm("Deseja mesmo aprova essa obra?")){
 
       $.ajax({
         url:"main.php",
         type:"POST",
         dataType:"json",
-        data:{acao:"aprovaObra",idObra:idObra,idEditora:idEditora},
+        data:{acao:"aprovaObra",idObra:idObra,idEditora:idEditora,texto:texto},
         success:function(){
             alert("Obra aprovada!");
-            history.back();
+            parent.history.back();
         }
       });
     }

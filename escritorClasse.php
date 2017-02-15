@@ -103,7 +103,7 @@ public function verificaAprovacao($idEscritor){
 }
 
 public function visualizaAprovacao($idEscritor){
-  $sql = "SELECT obraescritor.idObra as id_obra_escritor,obras.titulo, obrasaprovadas.idEditora as id_obra_editora, obrasaprovadas.id AS id_obras_aprovadas, editora.nome AS editora_nome FROM obraescritor INNER JOIN obrasaprovadas ON(obrasaprovadas.idObra = obraescritor.idObra) INNER JOIN obras ON(obraescritor.idObra = obras.id) INNER JOIN editora ON(obrasaprovadas.idEditora = editora.id) WHERE obraescritor.idEscritor = :idEscritor AND obrasaprovadas.visualizado <> 1";
+  $sql = "SELECT obraescritor.idObra as id_obra_escritor,obras.titulo,obrasaprovadas.texto, obrasaprovadas.idEditora as id_obra_editora, obrasaprovadas.id AS id_obras_aprovadas, editora.nome AS editora_nome FROM obraescritor INNER JOIN obrasaprovadas ON(obrasaprovadas.idObra = obraescritor.idObra) INNER JOIN obras ON(obraescritor.idObra = obras.id) INNER JOIN editora ON(obrasaprovadas.idEditora = editora.id) WHERE obraescritor.idEscritor = :idEscritor AND obrasaprovadas.visualizado <> 1";
 
   $stmt = BD::prepare($sql);
 
@@ -117,7 +117,7 @@ public function visualizaAprovacao($idEscritor){
     $stmt2->execute();
   }
 
-  $sql3 = "SELECT obraescritor.idObra as id_obra_escritor,obras.titulo, obrasaprovadas.idEditora as id_obra_editora, obrasaprovadas.id AS id_obras_aprovadas, editora.nome AS editora_nome FROM obraescritor INNER JOIN obrasaprovadas ON(obrasaprovadas.idObra = obraescritor.idObra) INNER JOIN obras ON(obraescritor.idObra = obras.id) INNER JOIN editora ON(obrasaprovadas.idEditora = editora.id) WHERE obraescritor.idEscritor = :idEscritor AND obrasaprovadas.visualizado = 1";
+  $sql3 = "SELECT obraescritor.idObra as id_obra_escritor,obras.titulo,obrasaprovadas.texto, obrasaprovadas.idEditora as id_obra_editora, obrasaprovadas.id AS id_obras_aprovadas, editora.nome AS editora_nome FROM obraescritor INNER JOIN obrasaprovadas ON(obrasaprovadas.idObra = obraescritor.idObra) INNER JOIN obras ON(obraescritor.idObra = obras.id) INNER JOIN editora ON(obrasaprovadas.idEditora = editora.id) WHERE obraescritor.idEscritor = :idEscritor AND obrasaprovadas.visualizado = 1";
   $stmt3 = BD::prepare($sql3);
   $stmt3->bindParam(':idEscritor',$idEscritor);
   $stmt3->execute();

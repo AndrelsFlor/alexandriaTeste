@@ -444,10 +444,11 @@ header('Content-type: text/plain; charset=utf-8');
 	else if($acao == "aprovaObra" ){
 		$idEditora = $_POST['idEditora'];
 		$idObra = $_POST['idObra'];
+		$texto = $_POST['texto'];
 
 		$editora = new Editora();
 
-		$editora->aprovaObra($idObra,$idEditora);
+		$editora->aprovaObra($idObra,$idEditora,$texto);
 	}
 
 	else if($acao == "verificaAprovacao"){
@@ -466,6 +467,7 @@ header('Content-type: text/plain; charset=utf-8');
 												"titulo" => $valor->titulo,
 												"flag" => 0,
 												"cont" => $cont
+
 			);
 			array_push($obj,$resposta);
 		}
@@ -484,6 +486,7 @@ header('Content-type: text/plain; charset=utf-8');
 			$consulta = array(
 											"nome_editora" => $valor->editora_nome ,
 											"nome_obra" =>$valor->titulo,
+											"texto"	=>$valor->texto
 			);
 
 			array_push($resposta,$consulta);

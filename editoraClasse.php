@@ -71,13 +71,14 @@ public function login($email,$senha){
 	}
 }
 
-public function aprovaObra($idObra,$idEditora){
-	$sql = "INSERT INTO obrasaprovadas(idObra,idEditora) VALUES(:idObra,:idEditora)";
+public function aprovaObra($idObra,$idEditora,$texto){
+	$sql = "INSERT INTO obrasaprovadas(idObra,idEditora,texto) VALUES(:idObra,:idEditora,:texto)";
 
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':idObra',		$idObra);
-	$stmt->bindParam(':idEditora',	$idEditora);
+	$stmt->bindParam(':idEditora',$idEditora);
+  $stmt->bindParam(':texto',    $texto);
 
 	return $stmt->execute();
 
