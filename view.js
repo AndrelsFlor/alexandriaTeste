@@ -21,7 +21,7 @@ $(document).ready(function(){
     var idEditora = $("#idEditora").val();
     var texto = $("#textoAprovacao").val();
     if(confirm("Deseja mesmo aprova essa obra?")){
-
+      if(texto != ""){
       $.ajax({
         url:"main.php",
         type:"POST",
@@ -32,6 +32,10 @@ $(document).ready(function(){
             parent.history.back();
         }
       });
+    }
+    else{
+      alert("O campo texto não pode estar vazio");
+    }
     }
   });
 });

@@ -37,6 +37,8 @@ $(document).ready(function() {
           $("#notificaSino").attr("style","");
           $("#notificaSino").html("");
           $("#aprovacoesLayout").toggle();
+          $globalTextos = new Array();
+          var cont = -1;
           $.ajax({
             url:"main.php",
             type:"POST",
@@ -45,8 +47,10 @@ $(document).ready(function() {
             success: function(data){
               $("#listaAprovacoes").html("");
               $.each(data,function(){
-
-                $("#listaAprovacoes").append("<a href='#' texto="+this.texto+" class='list-group-item'>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</a>'");
+                console.log(this.texto);
+                cont++;
+                $globalTextos.push(this.texto);
+                $("#listaAprovacoes").append("<a href='#' texto="+cont+" class='list-group-item'>"+this.nome_editora+" aprovou sua obra "+this.nome_obra+"</a>'");
               });
 
               }
@@ -54,7 +58,8 @@ $(document).ready(function() {
           });
 
           $(this).on("click",".list-group-item",function(){
-            alert($(this).attr("texto"));
+            var ponteiro = $(this).attr("texto");
+            alert($globalTextos[ponteiro]);
           });
 
         $(this).on('click',"#obras",function(e){
