@@ -166,14 +166,24 @@
 																			</div>
 																</div>
                                 </div>
+
+															<div class="collapse text-center" id="loginAdm">
+
+																<h1 class="title">Entrar como administrador</h1>
+																<form action="main.php" method="POST">
+																<input type="password" id="senhaAdm" name="senhaAdm" placeholder="Insira a senha de administrador da conta" size="40">
+																<input type="hidden" name="idEditora" value="<?php echo $id;?>">
+																<input type="submit" value="Log-in">
+															</form>
+															</div>
+
                             </div>
-
-
 
                             <div class="col-md-1 user-menu-btns">
                                 <div class="btn-group-vertical square" id="responsive">
-                                    <a href="#" id="notificacao"class="btn btn-block btn-default active">
-                                      <i class="fa fa-bell-o fa-3x"></i>
+                                    <a href="#" id="notificacao"class="btn btn-block btn-default active" data-toggle="collapse" data-target="#loginAdm">
+																			<i class="fa fa-lock fa-3x" ></i>
+
                                     </a>
                                     <a href="#" class="btn btn-default">
                                       <i class="fa fa-envelope-o fa-3x"></i>
@@ -181,7 +191,7 @@
                                     <button id="pesquisaObras" class="btn btn-default" data-toggle="collapse" data-target="#procuraObra" ng-click="carregaTags()">
                                       <i class="fa fa-search fa-3x"></i>
                                     </button>
-                                    <a href="#" class="btn btn-default" id="uploadObra">
+                                    <a href="#" class="btn btn-default" id="uploadObra" >
                                       <i class="fa fa-cloud-upload fa-3x"></i>
                                     </a>
 

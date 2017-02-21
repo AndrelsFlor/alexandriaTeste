@@ -10,10 +10,11 @@ private $cnpj;
 private $email;
 private $senha;
 private $fotoPerfil;
+private $senhaAdm;
 
 public function insert(){
 
-	$sql = "INSERT INTO $this->tabela(nome,cnpj,email,senha,fotoPerfil) VALUES(:nome,:cnpj,:email,:senha,:fotoPerfil)";
+	$sql = "INSERT INTO $this->tabela(nome,cnpj,email,senha,senhaAdm,fotoPerfil) VALUES(:nome,:cnpj,:email,:senha,:senhaAdm,:fotoPerfil)";
 
 	$stmt = BD::prepare($sql);
 
@@ -22,6 +23,7 @@ public function insert(){
 	$stmt->bindParam(':email', 			$this->email);
 	$stmt->bindParam(':senha', 			$this->senha);
 	$stmt->bindParam(':fotoPerfil', $this->fotoPerfil);
+  $stmt->bindParam(':senhaAdm',   $this->senhaAdm);
 
 	return $stmt->execute();
 }
@@ -69,6 +71,33 @@ public function login($email,$senha){
 	else{
 		return false;
 	}
+}
+
+public function loginAdm($id,$senha){
+$sql = "SELECT * FROM $this->tabela WHERE ID = :id";
+
+$stmt = BD::prepare($sql);
+
+$stmt->bindParam(':id',$id);
+
+$stmt->execute();
+
+$consulta = $stmt->fetchAll();
+
+if(!empty($consulta)){
+  $senha2 = $consulta->senha;
+  if(password_verify($senha,$senha2)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+else {
+  return false;
+}
+
+
 }
 
 public function aprovaObra($idObra,$idEditora,$texto){
@@ -121,6 +150,10 @@ public function setSenha($senha){
 public function setFotoPerfil($fotoPerfil){
 	$this->fotoPerfil = $fotoPerfil;
 
+}
+
+public function setSenhaAdm($senhaAdm){
+  $this->senhaAdm = $senhaAdm;
 }
 
 }
