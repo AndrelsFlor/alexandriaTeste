@@ -530,7 +530,7 @@ else if($acao == 'insereCritico'){
 	$editora 		= 	new Editora();
 	$resposta		=		[];
 
-	$editora->insereCritico($nome,$editora);
+	$editora->insereCritico($nome,$idEditora);
 
 	foreach($editora->buscaCriticos($idEditora) as $valor){
 		$consulta = array("nome" 	=> 	$valor->nome,

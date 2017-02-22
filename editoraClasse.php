@@ -139,7 +139,7 @@ public function insereCritico($nome,$idEditora){
   $stmt = BD::prepare($sql);
 
   $stmt->bindParam(':nome',     $nome);
-  $stmt->bindParam('idEditora', $idEditora);
+  $stmt->bindParam(':idEditora', $idEditora);
 
   return $stmt->execute();
 
