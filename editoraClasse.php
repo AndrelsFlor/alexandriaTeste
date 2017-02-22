@@ -132,6 +132,29 @@ $stmt->execute();
 
 return $stmt->fetchAll();
 }
+
+public function insereCritico($nome,$idEditora){
+  $sql = "INSERT INTO criticos(nome,idEditora) VALUES(:nome,:idEditora)";
+
+  $stmt = BD::prepare($sql);
+
+  $stmt->bindParam(':nome',     $nome);
+  $stmt->bindParam('idEditora', $idEditora);
+
+  return $stmt->execute();
+
+}
+
+public function buscaCriticos($idEditora){
+  $sql = "SELECT * FROM criticos WHERE idEditora = :idEditora";
+
+  $stmt = BD::prepare($sql);
+  $stmt->bindParam(':idEditora', $idEditora);
+
+  $stmt->execute();
+
+  return $stmt->fetchAll();
+}
 public function setNome($nome){
 	$this->nome = $nome;
 }

@@ -511,6 +511,36 @@ else if($acao == 'loginAdmEditora'){
 		echo "Login inválido!";
 	}
 }
+else if($acao == 'listaCriticos'){
+	$idEditora 	= 	$_POST['idEditora'];
+	$editora 		= 	new Editora();
+	$resposta 	= 	[];
+	foreach($editora->buscaCriticos($idEditora) as $valor){
+		$consulta = array("nome" 	=> 		$valor->nome,
+											"id"		=>		$valor->id);
+
+		array_push($resposta,$consulta);
+	}
+
+	echo json_encode($resposta);
+}
+else if($acao == 'insereCritico'){
+	$idEditora 	= 	$_POST['idEditora'];
+	$nome 			= 	$_POST['nomeCritico'];
+	$editora 		= 	new Editora();
+	$resposta		=		[];
+
+	$editora->insereCritico($nome,$editora);
+
+	foreach($editora->buscaCriticos($idEditora) as $valor){
+		$consulta = array("nome" 	=> 	$valor->nome,
+											"id"		=>	$valor->id);
+
+		array_push($resposta,$consulta);
+	}
+
+	echo json_encode($resposta);
+}
 
 
 ?>
