@@ -3,6 +3,11 @@
 <head>
 <?php
 	$id = $_GET['id'];
+	session_start();
+	if(!isset($_SESSION['id']) || $_SESSION['id'] != $id){
+			session_destroy();
+			header("location:index.html");
+	}
 ?>
 	<meta charset="utf-8">
 	<link href="snippet.css">
@@ -173,6 +178,7 @@
 																<form action="main.php" method="POST">
 																<input type="password" id="senhaAdm" name="senhaAdm" placeholder="Insira a senha de administrador da conta" size="40">
 																<input type="hidden" name="idEditora" value="<?php echo $id;?>">
+																<input type="hidden" name="acao" value="loginAdmEditora">
 																<input type="submit" value="Log-in">
 															</form>
 															</div>

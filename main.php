@@ -32,6 +32,8 @@ header('Content-type: text/plain; charset=utf-8');
 		else if($editora->login($email,$senha)){
 			$id =  $editora->login($email,$senha);
 
+			$_SESSION['id'] = $id;
+
 			header('location:editora.php?id='.$id);
 
 		}
@@ -494,7 +496,21 @@ header('Content-type: text/plain; charset=utf-8');
 
 		echo json_encode($resposta);
 	}
+else if($acao == 'loginAdmEditora'){
+	$editora = new Editora();
+	$senha = $_POST['senhaAdm'];
+	$id = $_POST['idEditora'];
 
+	if($editora->loginAdm($id,$senha) == true){
+		session_start();
+		$_SESSION['id'] = $id;
+		header("location:admEditora.php?id=".$id);
+
+	}
+	else{
+		echo "Login inválido!";
+	}
+}
 
 
 ?>

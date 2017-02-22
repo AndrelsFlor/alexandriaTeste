@@ -81,11 +81,12 @@ $stmt = BD::prepare($sql);
 $stmt->bindParam(':id',$id);
 
 $stmt->execute();
+$valor;
 
-$consulta = $stmt->fetchAll();
+$consulta = $stmt->fetch();
 
 if(!empty($consulta)){
-  $senha2 = $consulta->senha;
+  $senha2 = $consulta->senhaAdm;
   if(password_verify($senha,$senha2)){
     return true;
   }
