@@ -155,6 +155,19 @@ public function buscaCriticos($idEditora){
 
   return $stmt->fetchAll();
 }
+
+public function deletaCritico($idCritico){
+  $sql = "DELETE  FROM criticos WHERE id = :idCritico";
+
+  $stmt = BD::prepare($sql);
+
+  $stmt->bindParam(':idCritico',$idCritico);
+
+  return $stmt->execute();
+
+
+}
+
 public function setNome($nome){
 	$this->nome = $nome;
 }

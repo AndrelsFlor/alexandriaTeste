@@ -542,5 +542,23 @@ else if($acao == 'insereCritico'){
 	echo json_encode($resposta);
 }
 
+else if($acao == 'deletaCritico'){
+	$idCritico = $_POST['idCritico'];
+	$idEditora = $_POST['idEditora'];
+	$editora = new Editora();
+	$resposta = [];
+
+	$editora->deletaCritico($idCritico);
+
+	foreach($editora->buscaCriticos($idEditora) as $valor){
+		$consulta = array("nome" 	=> 	$valor->nome,
+											"id"		=>	$valor->id);
+
+		array_push($resposta,$consulta);
+	}
+
+	echo json_encode($resposta);
+}
+
 
 ?>
