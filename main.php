@@ -559,6 +559,43 @@ else if($acao == 'deletaCritico'){
 
 	echo json_encode($resposta);
 }
+else if($acao=='inserirEscritor'){
+	$escritor = new Escritor();
 
+	$nome = $_POST['nome'];
+	$email = $_POST['email'];
+	$senha = $_POST['senha'];
+	$cpf = $_POST['cpf'];
+
+	$escritor->setNome($nome);
+	$escritor->setEmail($email);
+	$escritor->setSenha($senha);
+	$escritor->setCPF($cpf);
+	$escritor->setFotoPerfil('9f5948f486d93e865e96afd1bcc01f1f_profile-clip-art-profile-picture-clipart_300-279.png');
+	if($escritor->insert()){
+		$resposta = array("status"=>"sucesso");
+		echo json_encode($resposta);
+	}
+}
+else if($acao == 'insereEditora'){
+	$editora = new Editora();
+
+	$nome = $_POST['nome'];
+	$email = $_POST['email'];
+	$senha = $_POST['senha'];
+	$senhaAdm = $_POST['senhaAdm'];
+	$cnpj = $_POST['cnpj'];
+
+	$editora->setNome($nome);
+	$editora->setEmail($email);
+	$editora->setSenha($senha);
+	$editora->setCNPJ($cnpj);
+	$editora->setSenhaAdm($senhaAdm);
+	$editora->setFotoPerfil('9f5948f486d93e865e96afd1bcc01f1f_profile-clip-art-profile-picture-clipart_300-279.png');
+	$resposta = array("status"=>"sucesso");
+	if($editora->insert()){
+		echo json_encode($resposta);
+	}
+}
 
 ?>

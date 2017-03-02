@@ -14,7 +14,7 @@ private $senhaAdm;
 
 public function insert(){
 
-	$sql = "INSERT INTO $this->tabela(nome,cnpj,email,senha,senhaAdm,fotoPerfil) VALUES(:nome,:cnpj,:email,:senha,:senhaAdm,:fotoPerfil)";
+	$sql = "INSERT INTO $this->tabela(nome,cnpj,email,senha,senhaAdm,logo) VALUES(:nome,:cnpj,:email,:senha,:senhaAdm,:fotoPerfil)";
 
 	$stmt = BD::prepare($sql);
 
@@ -190,7 +190,7 @@ public function setFotoPerfil($fotoPerfil){
 }
 
 public function setSenhaAdm($senhaAdm){
-  $this->senhaAdm = $senhaAdm;
+  $this->senhaAdm = password_hash($senhaAdm,PASSWORD_DEFAULT);
 }
 
 }

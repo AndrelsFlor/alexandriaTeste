@@ -30,7 +30,7 @@
 			    			</div>
 
 			    			<div class="form-group">
-  			    			<input type="text" name="cpf" id="cpf" class="form-control input-sm" placeholder="CPF"  required="true">
+  			    			<input type="text" name="cnpj" id="cnpj" class="form-control input-sm" placeholder="CNPJ"  required="true">
                 </div>
 
 
@@ -42,13 +42,26 @@
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" required="true">
+			    						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirmar senha" required="true">
 			    					</div>
 			    				</div>
 			    			</div>
 
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password" id="password_adm" class="form-control input-sm" placeholder="Senha de admministrador" required="true">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password_adm_confirmation" id="password_adm_confirmation" class="form-control input-sm" placeholder="Confirmar senha de administrador" required="true">
+                    </div>
+                  </div>
+                </div>
+
 			    			<input type="submit" value="Register" class="btn btn-info btn-block">
-                <a href="registra_editora.php">Quero me cadastrar como uma editora</a>
+
 			    		</form>
 			    	</div>
 	    		</div>
@@ -56,6 +69,6 @@
     	</div>
     </div>
     <script src="node_modules/gerador-validador-cpf/dist/js/CPF.js"></script>
-    <script src="registrar.js"></script>
+    <script src="registrar_editora.js"></script>
 </body>
 </html>
