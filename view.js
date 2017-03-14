@@ -20,13 +20,14 @@ $(document).ready(function(){
     var idObra = $("#idObra").val();
     var idEditora = $("#idEditora").val();
     var texto = $("#textoAprovacao").val();
+    var idCritico = $("#selectCriticos").val();
     if(confirm("Deseja mesmo aprova essa obra?")){
       if(texto != ""){
       $.ajax({
         url:"main.php",
         type:"POST",
         dataType:"json",
-        data:{acao:"aprovaObra",idObra:idObra,idEditora:idEditora,texto:texto},
+        data:{acao:"aprovaObra",idObra:idObra,idEditora:idEditora,texto:texto,idCritico:idCritico},
         success:function(){
             alert("Obra aprovada!");
             parent.history.back();

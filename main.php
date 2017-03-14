@@ -447,10 +447,11 @@ header('Content-type: text/plain; charset=utf-8');
 		$idEditora = $_POST['idEditora'];
 		$idObra = $_POST['idObra'];
 		$texto = $_POST['texto'];
+		$idCritico = $_POST['idCritico'];
 
 		$editora = new Editora();
 
-		$editora->aprovaObra($idObra,$idEditora,$texto);
+		$editora->aprovaObra($idObra,$idEditora,$idCritico,$texto);
 	}
 
 	else if($acao == "verificaAprovacao"){
@@ -596,6 +597,24 @@ else if($acao == 'insereEditora'){
 	if($editora->insert()){
 		echo json_encode($resposta);
 	}
+}
+
+else if($acao == 'listaAprovacoes'){
+	$editora = new Editora();
+	$idEditora = $_POST['idEditora'];
+	$resposta = [];
+
+	foreach($editora->listaAprovacoes($idEditora) as $valor){
+		$aprovacoes = array('id' => $valor->obrasID,
+									'titulo' 		=> $valor->obrasTitulo,
+									'caminho' 	=> $valor->obrasCaminho,
+									'descricao' => $valor->obrasDescricao,
+									'pgDisp' 		=> $valor->obrasPgDisp,
+									'pgTotal' 	=> $valor->obrasPgTotal,
+									'critico' 	=> $valor->nome_critico);
+	array_push($resposta,$aprovacoes);
+	}
+	echo json_encode($resposta);
 }
 
 ?>

@@ -101,17 +101,30 @@ else {
 
 }
 
-public function aprovaObra($idObra,$idEditora,$texto){
-	$sql = "INSERT INTO obrasaprovadas(idObra,idEditora,texto) VALUES(:idObra,:idEditora,:texto)";
+public function aprovaObra($idObra,$idEditora,$idCritico,$texto){
+	$sql = "INSERT INTO obrasaprovadas(idObra,idEditora,texto,idCritico) VALUES(:idObra,:idEditora,:texto,:idCritico)";
 
 	$stmt = BD::prepare($sql);
 
 	$stmt->bindParam(':idObra',		$idObra);
 	$stmt->bindParam(':idEditora',$idEditora);
   $stmt->bindParam(':texto',    $texto);
+  $stmt->bindParam(':idCritico',$idCritico);
 
 	return $stmt->execute();
 
+}
+
+public function listaAprovacoes($idEditora){
+  $sql = "SELECT obrasaprovadas.idEditora as id_editora, idCritico as id_critico,criticos.nome as nome_critico, obras.id AS obrasID, obras.titulo AS obrasTitulo, obras.caminho AS obrasCaminho,obras.descricao AS obrasDescricao, obras.pgDisp as obrasPgDisp, obras.pgTotal as obrasPgTotal FROM obrasaprovadas INNER JOIN criticos ON(obrasaprovadas.idCritico = criticos.id) INNER JOIN obras ON(idObra = obras.id) WHERE obrasaprovadas.idEditora  = :idEditora";
+
+  $stmt = BD::prepare($sql);
+
+  $stmt->bindParam(':idEditora',$idEditora);
+
+  $stmt->execute();
+
+  return $stmt->fetchAll();
 }
 
 public function buscaTodasObras(){
